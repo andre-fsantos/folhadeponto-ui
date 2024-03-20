@@ -1,0 +1,50 @@
+# Folha de Ponto
+Timesheet printing system for Teresina Central campus federal employeers.
+
+# Requirements ⚙️
+Requriments to run the application locally *If you choose docker to setup the development envrironment you not neccessary need to have npm installed*
+
+- Node.js installed with `20.11.0` version. You can either use [asdf](https://asdf-vm.com/guide/getting-started.html) or [rvm](https://github.com/rvm/rvm)
+- docker and docker compose pluging
+
+# Get started 💡
+To start off you need to setup your development environment
+
+## Docker setup 🐋
+Once you already have docker installed you'll need to run only one command
+
+```bash
+# run with sudo if your docker executable does not have sudo privileges
+docker compose up -d # this will run in detach mode, logs will be hidden
+```
+
+Then you can check the project running at `http://localhost:5173`
+
+```bash
+# run with sudo if your docker executable does not have sudo privileges
+docker compose logs
+```
+
+
+## Manual setup
+
+After clone the project all you need to do is run the install script.
+This command will install all dependencies of the project, without it you won't be able to run the project
+```bash
+# please use npm
+npm install
+```
+
+Next, you need to up the project, so run the dev script
+```bash
+# this will run vite dev bin
+npm run dev
+```
+
+Then you can check the project running at `http://localhost:5173`
+
+# About
+In this projec we're using the following libraries and tools
+- [React](https://react.dev) (v18.2.0)
+- [Vite](https://vitejs.dev/guide/why.html)
+- [tailwindcss](https://tailwindcss)
