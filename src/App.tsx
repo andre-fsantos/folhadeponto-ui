@@ -1,16 +1,25 @@
-export default function App() {
+import React from 'react';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import Layout from './pages/Layout';
+import Home from './pages/Home';
+import Servidores from './pages/Servidores';
+import Pag2 from './pages/Pag2';
+import CadastraServidor from './pages/NovoServidor';
+
+
+
+function App() {
   return (
-    <div className="bg-slate-200 h-screen flex flex-col items-center justify-center gap-5">
-      <h1 className="text-3xl text-gray-500 font-bold">Folha de ponto</h1>
-      <div>
-        <img
-          src="/ifpi.png"
-          alt="logo instituto federal"
-          width={200}
-          height={250}
-          className="flex"
-        />
-      </div>
-    </div>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Home />}/>
+          <Route path='/servidores' element={<Servidores />} />
+          <Route path='/novo-servidor' element={<CadastraServidor />}/>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
 }
+
+export default App;
