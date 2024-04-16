@@ -15,17 +15,21 @@ type Servidor = {
 
 type ApiResponseType = {
     content: Servidor[]
-  }
+}
 
-
-export async function getServidores(): Promise<ApiResponseType> {
+export async function GetServidores(matricula?: string, nome?: string): Promise<ApiResponseType> {
     try {
-        const response = await fetch('http://10.30.70.127:8090/folhadeponto/servidores');
+        let parametro = '';
+        if(matricula !== undefined && nome !== undefined) parametro = `?matricula=${ matricula }&nome=${ nome }`;
+        if(matricula !== undefined && nome === undefined) parametro = `?matricula=${ matricula }`;
+        if(matricula === undefined && nome !== undefined) parametro = `?nome=${ nome }`;
+
+        const url = `http://10.30.70.127:8090/folhadeponto/servidores${ parametro }`;
+        const response = await fetch(url);
         if (!response.ok) {
-            throw new Error('Erro ao buscar dados');
+            throw new Error('Erro ao tentar listar servidores');
         }
         const data = await response.json();
-        // console.log(data);
         return data;
     } catch (error) {
         console.error('Erro na requisição:', error);

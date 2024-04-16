@@ -5,11 +5,8 @@ function Layout() {
         <>
             <nav>
                 <ul>
-                    <li>
-                        <Link to='/'>Home</Link>
-                    </li>
                    <li>
-                    <Link to='/servidores'>Servidores</Link>
+                    <Link to='/servidores'>Mostrar Servidores</Link>
                    </li>
                 </ul>
             </nav>

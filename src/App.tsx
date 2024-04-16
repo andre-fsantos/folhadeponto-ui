@@ -1,21 +1,18 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Layout from './pages/Layout';
-import Home from './pages/Home';
-import Servidores from './pages/Servidores';
-import Pag2 from './pages/Pag2';
-import CadastraServidor from './pages/NovoServidor';
-
-
+import Servidores from './pages/ListaServidores';
+import CadastraServidor from './pages/CadastraServidor';
+import EditaServidor from './pages/AtualizaServidor';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route index element={<Home />}/>
           <Route path='/servidores' element={<Servidores />} />
-          <Route path='/novo-servidor' element={<CadastraServidor />}/>
+          <Route path='/cadastrar-servidor' element={<CadastraServidor />}/>
+          <Route path='/atualizar-cadastro-do-servidor' element={<EditaServidor />}/>
         </Route>
       </Routes>
     </BrowserRouter>
