@@ -21,30 +21,34 @@ type Props = {
   listaDeServidores: Servidor[];
 }
 
+
+const Campi = {
+  'CAANG': 'Angical',
+  'CACAM': 'Campo Maior',
+  'CACOC': 'Cocal',
+  'CACOR': 'Corrente',
+  'CADIR': 'Dirceu',
+  'CAFLO': 'Floriano',
+  'CAJFR': 'José de Freitas',
+  'CAOEI': 'Oeiras',
+  'CAPAR': 'Parnaiba',
+  'CAPAU': 'Paulistana',
+  'CAPEDII': 'Pedro II',
+  'CAPIC': 'Picos',
+  'CAPIR': 'Piripiri',
+  'CAPIX': 'Pio IX',
+  'CASJP': 'São João do Piauí',
+  'CASRN': 'São Raimundo Nonato',
+  'CATCE': 'Teresina Central',
+  'CATZS': 'Teresina Zona Sul',
+  'CAURU': 'Uruçuí',
+  'CAVAL': 'Valença',
+  'REI': 'Reitoria'
+};
+
+type CampiType = keyof typeof Campi
+
 const TabelaDeObjetos: React.FC<Props> = ({ listaDeServidores, mostraToast }) => {
-  // const Campi = {
-  //   'CAANG': 'Angical',
-  //   'CACAM': 'Campo Maior',
-  //   'CACOC': 'Cocal',
-  //   'CACOR': 'Corrente',
-  //   'CADIR': 'Dirceu',
-  //   'CAFLO': 'Floriano',
-  //   'CAJFR': 'José de Freitas',
-  //   'CAOEI': 'Oeiras',
-  //   'CAPAR': 'Parnaiba',
-  //   'CAPAU': 'Paulistana',
-  //   'CAPEDII': 'Pedro II',
-  //   'CAPIC': 'Picos',
-  //   'CAPIR': 'Piripiri',
-  //   'CAPIX': 'Pio IX',
-  //   'CASJP': 'São João do Piauí',
-  //   'CASRN': 'São Raimundo Nonato',
-  //   'CATCE': 'Teresina Central',
-  //   'CATZS': 'Teresina Zona Sul',
-  //   'CAURU': 'Uruçuí',
-  //   'CAVAL': 'Valença',
-  //   'REI': 'Reitoria'
-  // };
 
 
   return (
@@ -54,7 +58,7 @@ const TabelaDeObjetos: React.FC<Props> = ({ listaDeServidores, mostraToast }) =>
           <tr className="border" key={index}>
             <td className="border p-4">{servidor.siape}</td>
             <td className="border p-4">{servidor.nome}</td>
-            <td className="border p-4">{servidor.campus}</td>
+            <td className="border p-4">{Campi[servidor.campus as CampiType] }</td>
             <td className="border p-4">{servidor.cargo}</td>
             <td className="border p-4">{servidor.cargaHoraria} h</td>
             <td className="border p-4">

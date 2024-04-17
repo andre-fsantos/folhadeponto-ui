@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useRef, useEffect } from "react";
+import { useState, ChangeEvent } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { PostServidor } from '../infrastructure/PostServidor.tsx';
 import Info from "../components/Info.tsx";
@@ -10,7 +10,7 @@ const CadastraServidor = () => {
     const [mostraInfo, setMostraInfo] = useState(false);
     const [info, setInfo] = useState('');
     const [bgInfo, setBgInfo] = useState('');
-
+ 
     const [siape, setSiape] = useState('');
     const [nome, setNome] = useState('');
     const [campus, setCampus] = useState('');
@@ -22,9 +22,52 @@ const CadastraServidor = () => {
     const [saidaSegundoTurno, setSaidaSegundoTurno] = useState('');
     const [perfil, setPerfil] = useState('');
 
+    const [borderError1, setBorderError1] = useState({});
+    const [borderError2, setBorderError2] = useState({});
+
+    const mostraAlerta = (msn: string, bg: string) => {
+        setInfo(msn);
+        setBgInfo(bg);
+        setMostraInfo(true);
+
+        setTimeout(() => {
+            setMostraInfo(false);
+        }, 3 * 1000);
+    }
 
 
     const fetchCadastro = async () => {
+
+        const time1 = new Date(`1970-01-01T${entradaPrimeiroTurno}Z`);
+        const time2 = new Date(`1970-01-01T${saidaPrimeiroTurno}Z`);
+        const time3 = new Date(`1970-01-01T${entradaSegundoTurno}Z`);
+        const time4 = new Date(`1970-01-01T${saidaSegundoTurno}Z`);
+
+        const valid1 = time2 > time1;
+        const valid2 = time4 > time3;
+        const valid3 = time3 > time2;
+
+        if(entradaSegundoTurno !== '' || saidaSegundoTurno !== '') {
+            if(! (valid1 && valid2 && valid3)) {
+                mostraAlerta('Selecione um intervalo válido de turno!', 'bg-red-200');
+                setBorderError1({ border: 'red solid 1px' });
+                setBorderError2({ border: 'red solid 1px' });
+                setTimeout(() => {
+                    setBorderError1({});
+                    setBorderError2({});
+                }, 3 * 1000);
+                return;
+            }
+        } else {
+            if(!valid1) {
+                mostraAlerta('Selecione um intervalo válido de turno!', 'bg-red-200');
+                setBorderError1({ border: 'red solid 1px' });
+                setTimeout(() => { setBorderError1({}) }, 3 * 1000);
+                return;
+            }
+        }
+
+        
         try {
             const servidor = {
                 siape,
@@ -80,13 +123,7 @@ const CadastraServidor = () => {
 
 
         } catch (error) {
-            setInfo('Erro ao tentar cadastrar o servidor!');
-            setBgInfo('bg-red-200');
-            setMostraInfo(true);
-
-            setTimeout(() => {
-                setMostraInfo(false);
-            }, 3 * 1000);
+            mostraAlerta('Erro ao tentar cadastrar o servidor!', 'bg-red-200');
         }
     };
 
@@ -96,16 +133,8 @@ const CadastraServidor = () => {
         const inputNumero = input.replace(/\D/g, '');
 
         if(input !== inputNumero) {
-            setInfo('Digite apenas números!');
-            setBgInfo('bg-red-200');
-            setMostraInfo(true);
-
+            mostraAlerta('Digite apenas números!', 'bg-red-200');
             event.target.style.outlineColor = 'red';
-            
-            setTimeout(() => {
-                setMostraInfo(false);
-                event.target.style.outlineColor = '';
-            }, 3 * 1000);
         }
         setCargaHoraria(inputNumero);
     }
@@ -180,21 +209,21 @@ const CadastraServidor = () => {
                         <div className="flex">
                             <div className="ml-4">
                                 <span className="block font-bold">Entrada primeiro turno <span className="text-red-500">*</span></span>
-                                <input value={entradaPrimeiroTurno} name="entradaPrimeiroTurno" onChange={ e => setEntradaPrimeiroTurno(e.target.value) } type="time" className="p-1 rounded border-gray-400 border mb-2 w-[195px]" required />
+                                <input value={entradaPrimeiroTurno} style={borderError1} name="entradaPrimeiroTurno" onChange={ e => setEntradaPrimeiroTurno(e.target.value) } type="time" className="p-1 rounded border-gray-400 border mb-2 w-[195px]" required />
                             </div>
                             <div className="ml-4">
                                 <span className="block font-bold">Saída primeiro turno <span className="text-red-500">*</span></span>
-                                <input value={saidaPrimeiroTurno} name="saidaPrimeiroTurno" onChange={ e => setSaidaPrimeiroTurno(e.target.value) } type="time" className="p-1 rounded border-gray-400 border mb-2 w-[195px]" required />
+                                <input value={saidaPrimeiroTurno} style={borderError1} name="saidaPrimeiroTurno" onChange={ e => setSaidaPrimeiroTurno(e.target.value) } type="time" className="p-1 rounded border-gray-400 border mb-2 w-[195px]" required />
                             </div>
                         </div>
                         <div className="flex">
                             <div className="ml-4">
                                 <span className="block font-bold">Entrada segundo turno</span>
-                                <input value={entradaSegundoTurno} name="entradaSegundoTurno" onChange={ e => setEntradaSegundoTurno(e.target.value) } type="time" className="p-1 rounded border-gray-400 border mb-2 w-[195px]" required />
+                                <input value={entradaSegundoTurno} style={borderError2} name="entradaSegundoTurno" onChange={ e => setEntradaSegundoTurno(e.target.value) } type="time" className="p-1 rounded border-gray-400 border mb-2 w-[195px]" required />
                             </div>
                             <div className="ml-4">
                                 <span className="block font-bold">Saída segundo turno</span>
-                                <input value={saidaSegundoTurno} name="saidaSegundoTurno" onChange={ e => setSaidaSegundoTurno(e.target.value) } type="time" className="p-1 rounded border-gray-400 border mb-2 w-[195px]" required />
+                                <input value={saidaSegundoTurno} style={borderError2} name="saidaSegundoTurno" onChange={ e => setSaidaSegundoTurno(e.target.value) } type="time" className="p-1 rounded border-gray-400 border mb-2 w-[195px]" required />
                             </div>
                         </div>
                         <div className="ml-4">
@@ -211,7 +240,7 @@ const CadastraServidor = () => {
 
                 <div className="mt-6 flex justify-end mr-10">
                     <button
-                        onClick={fetchCadastro}// trocar
+                        onClick={fetchCadastro}
                         className="p-2 bg-green-200 rounded hover:bg-green-300">Cadastrar</button>
                     <Link to='/servidores'>
                         <button

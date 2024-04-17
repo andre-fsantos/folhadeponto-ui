@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Table from '../components/Table.tsx';
 import Pagination from '../components/Pagination.tsx';
 import BtnNovoServidor from '../components/BtnNovoServidor.tsx';
@@ -38,13 +38,13 @@ function App() {
   const [servidores, setServidores] = useState<Servidores[]>([]);
 
   const mostraAlerta = (msn: string, bg: string) => {
-      setIsInfo(true);
-      setBgInfo(bg);
-      setMensagem(msn);
+    setIsInfo(true);
+    setBgInfo(bg);
+    setMensagem(msn);
 
-      setTimeout(() => {
-        setIsInfo(false);
-      }, 3 * 1000);
+    setTimeout(() => {
+      setIsInfo(false);
+    }, 3 * 1000);
   }
 
   const fetchDataFromAPI = async (matricula?: string, nome?: string) => {
@@ -63,15 +63,15 @@ function App() {
 
 
   const [idServidor, setIdServidor] = useState(0);
-  
+
 
   const apagaCadastroServidor = async () => {
     try {
       const data = await DeleteServidor(idServidor);
       if (data) {
         setShowToast(false);
-      
-        if(matricula === '' && nome === '') {
+
+        if (matricula === '' && nome === '') {
           fetchDataFromAPI();
         } else {
           fetchDataFromAPI(matricula, nome);
@@ -83,7 +83,7 @@ function App() {
         mostraAlerta('Erro ao tentar excluir o cadastro do servidor!', 'bg-red-200');
       }
     } catch (error) {
-        mostraAlerta('Erro ao tentar excluir o cadastro do servidor!', 'bg-red-200');
+      mostraAlerta('Erro ao tentar excluir o cadastro do servidor!', 'bg-red-200');
     }
   };
 
@@ -117,7 +117,7 @@ function App() {
 
 
   useEffect(() => {
-    if(matricula.trim() === '' && nome.trim() === '') {
+    if (matricula.trim() === '' && nome.trim() === '') {
       fetchDataFromAPI();
     }
   }, [matricula, nome]);
@@ -170,30 +170,30 @@ function App() {
           </div>
 
           <div className="flex row">
-              <div>
-                <span className=" mt-4 text-sm font-bold text-gray-500">Matrícula</span>
-                <input type="text" value={matricula} onChange={e => setMatricula(e.target.value)} onFocus={e => e.target.select()} className="border block p-1" />
-              </div>
-              <div className="ml-2">
-                <span className="text-sm font-bold text-gray-500">Nome</span>
-                <input type="text" value={nome} onChange={e => setNome(e.target.value)} onFocus={e => e.target.select()} className="border block p-1" />
-              </div>
+            <div>
+              <span className=" mt-4 text-sm font-bold text-gray-500">Matrícula</span>
+              <input type="text" value={matricula} onChange={e => setMatricula(e.target.value)} onFocus={e => e.target.select()} className="border block p-1" />
+            </div>
+            <div className="ml-2">
+              <span className="text-sm font-bold text-gray-500">Nome</span>
+              <input type="text" value={nome} onChange={e => setNome(e.target.value)} onFocus={e => e.target.select()} className="border block p-1" />
+            </div>
             <div className="flex items-end text-white">
               <button
                 onClick={buscaServidor}
                 className="bg-blue-500 p-1 px-2 rounded ml-2 hover:bg-blue-600">Buscar</button>
 
-                {
-                  (matricula || nome) &&
-                  (
-                    <button
-                      onClick={() => {
-                        limpaCampos();
-                        fetchDataFromAPI();
-                      }}
-                      className="bg-gray-500 p-1 px-2 rounded ml-2 hover:bg-gray-600">Limpar</button>
-                  )
-                }
+              {
+                (matricula || nome) &&
+                (
+                  <button
+                    onClick={() => {
+                      limpaCampos();
+                      fetchDataFromAPI();
+                    }}
+                    className="bg-gray-500 p-1 px-2 rounded ml-2 hover:bg-gray-600">Limpar</button>
+                )
+              }
             </div>
           </div>
 
