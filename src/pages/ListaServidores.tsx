@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Table from '../components/Table.tsx';
+import Table from '../components/table.tsx';
 import Pagination from '../components/Pagination.tsx';
 import BtnNovoServidor from '../components/BtnNovoServidor.tsx';
 import { GetServidores } from '../infrastructure/GetServidores.tsx';
