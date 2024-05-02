@@ -26,13 +26,14 @@ const CadastraServidor = () => {
     const [borderError2, setBorderError2] = useState({});
 
     const mostraAlerta = (msn: string, bg: string) => {
+        const TOAST_DURATION = 3000;
         setInfo(msn);
         setBgInfo(bg);
         setMostraInfo(true);
 
         setTimeout(() => {
             setMostraInfo(false);
-        }, 3 * 1000);
+        }, TOAST_DURATION);
     }
 
 
@@ -60,9 +61,10 @@ const CadastraServidor = () => {
             }
         } else {
             if(!valid1) {
+                const TOAST_DURATION = 3000;
                 mostraAlerta('Selecione um intervalo válido de turno!', 'bg-red-200');
                 setBorderError1({ border: 'red solid 1px' });
-                setTimeout(() => { setBorderError1({}) }, 3 * 1000);
+                setTimeout(() => { setBorderError1({}) }, TOAST_DURATION);
                 return;
             }
         }
@@ -103,12 +105,13 @@ const CadastraServidor = () => {
                         if(hasErro) {
                             elmFields[i].style.borderColor = 'red';
                             elmFields[i].style.outlineColor = 'red';
+                            const TOAST_DURATION = 3000;
 
                             setTimeout(() => {
                                 elmFields[i].style.borderColor = '';
                                 elmFields[i].style.outlineColor = '';
                                 setMostraInfo(false);
-                            }, 3 * 1000);
+                            }, TOAST_DURATION);
 
                             break;
                         }
@@ -138,7 +141,6 @@ const CadastraServidor = () => {
         }
         setCargaHoraria(inputNumero);
     }
-
 
 
 
@@ -231,8 +233,7 @@ const CadastraServidor = () => {
                             <select value={perfil} name="perfil" onChange={ e => setPerfil(e.target.value) } className="p-1.5 border border-gray-400 rounded w-[195px]">
                                 <option value=''></option>
                                 <option value='COMUM'>Comum</option>
-                                <option value='PERFIL2'>Perfil 2</option>
-                                <option value='PERFIL3'>Perfil 3</option>
+                                <option value='PERFIL2'>Admin</option>
                             </select>
                         </div>
                     </div>
