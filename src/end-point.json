@@ -1,0 +1,43 @@
+{
+    "content": [
+        {
+            "id": 2,
+            "siape": "12345",
+            "nome": "João",
+            "campus": "CATCE",
+            "cargo": "Assistente de Administração",
+            "cargaHoraria": 30,
+            "entradaPrimeiroTurno": "08:00:00",
+            "saidaPrimeiroTurno": "14:00:00",
+            "entradaSegundoTurno": null,
+            "saidaSegundoTurno": null,
+            "perfil": "COMUM",
+            "status": true
+        }
+    ],
+    "pageable": {
+        "sort": {
+            "sorted": false,
+            "unsorted": true,
+            "empty": true
+        },
+        "offset": 0,
+        "pageSize": 25,
+        "pageNumber": 0,
+        "paged": true,
+        "unpaged": false
+    },
+    "last": true,
+    "totalElements": 1,
+    "totalPages": 1,
+    "size": 25,
+    "number": 0,
+    "sort": {
+        "sorted": false,
+        "unsorted": true,
+        "empty": true
+    },
+    "numberOfElements": 1,
+    "first": true,
+    "empty": false
+}
